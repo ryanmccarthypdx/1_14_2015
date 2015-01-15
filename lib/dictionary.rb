@@ -9,6 +9,25 @@ class Term
 
   define_method(:word) do
     @word.join("; ").to_s()
+#Term.new(Word.new(w, l), Def.new(d, l))
+  end
+
+  define_method(:word_lang) do |target_language|
+    @word.each() do |entry|
+      lang_key = entry.language()
+      if lang_key.==(target_language)
+       return entry.word()
+      end
+    end
+  end
+
+  define_method(:def_lang) do |target_language|
+    @definition.each() do |entry|
+      lang_key = entry.language()
+      if lang_key.==(target_language)
+       return entry.definition()
+      end
+    end
   end
 
   define_method(:definition) do
@@ -54,6 +73,19 @@ class Term
 
   define_method(:woppend) do |woppend_word|
     @word.push(woppend_word)
+  end
+
+  define_singleton_method(:find) do |identification|
+    found_entry = nil
+    @@all_terms.each() do |term|
+      if term.id
+
+
+        ().eql?(identification.to_i())
+        found_vehicle = vehicle
+      end
+    end
+    found_vehicle
   end
 
 end

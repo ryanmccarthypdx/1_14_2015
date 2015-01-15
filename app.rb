@@ -2,6 +2,12 @@ require('sinatra')
 require('sinatra/reloader')
 also_reload('/lib/**/*.rb')
 require('./lib/used_cars')
+require('./lib/dictionary')
+require('./lib/word')
+require('./lib/definition')
+
+
+
 
 get('/used_cars_form') do
   @title = "Used Cars"
@@ -25,6 +31,13 @@ get('/vehicles/:id') do
   @vehicle = Vehicle.find(params.fetch("id"))
   erb(:vehicle)
 end
+
+get('/dictionary') do
+  @title = "Dictionary"
+  @entries = Terms.all()
+  erb(:dict_main)
+end
+
 
 # yourwebsite.com/vehicles/2
 #

@@ -1,5 +1,8 @@
 require('dictionary')
+require('word')
+require('definition')
 require('rspec')
+require('pry')
 
 describe(Term) do
   before() do
@@ -12,6 +15,32 @@ describe(Term) do
       expect(test_entry.word()).to(eq("van"))
     end
   end
+
+  describe('#word_lang') do
+    it("returns the word that we have defined if we create the entry via the Word class") do
+      word_instance = Word.new('Previa', 'English')
+      word_instance.save()
+      def_instance = Definition.new('a rounded type of van', 'English')
+      def_instance.save()
+      van = Term.new(word_instance, def_instance)
+      van.save()
+      expect(van.word_lang('English')).to(eq('Previa'))
+    end
+  end
+
+    describe('#def_lang') do
+    it("returns the definition for a word if we create the entry via the Definition class") do
+      word_instance = Word.new('Previa', 'English')
+      word_instance.save()
+      def_instance = Definition.new('a rounded type of van', 'English')
+      def_instance.save()
+      van = Term.new(word_instance, def_instance)
+      van.save()
+      expect(van.def_lang('English')).to(eq('a rounded type of van'))
+    end
+  end
+
+
   describe('#definition') do
     it("returns the definition that we have given") do
       test_entry = Term.new("van", "large car for camping")
@@ -63,4 +92,5 @@ describe(Term) do
       expect(test_entry1.word()).to(eq("van; Auto"))
     end
   end
+
 end
